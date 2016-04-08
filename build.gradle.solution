@@ -1,0 +1,25 @@
+def createFilesInFolder(String folderName)  {
+    file(folderName).mkdir()
+    file("$folderName/1.txt").text = "One for the money."
+    file("$folderName/2.txt").text = "Two for the show."
+    file("$folderName/3.txt").text = "Three to get ready."
+}
+
+def updateFilesInFolder(String folderName)  {
+    file("$folderName/1.txt").text = "Don't have any money."
+    file("$folderName/3.txt").text = "She is still getting ready."
+}
+
+
+def removeFilesFromFolder (def folderName) {
+	def directory = file(folderName)
+	directory.eachFileRecurse()
+	{ file ->
+      println "Deleting ${file}..."
+      file.delete()
+	}
+}
+
+createFilesInFolder "inputs"
+updateFilesInFolder "inputs"
+removeFilesFromFolder "inputs"
