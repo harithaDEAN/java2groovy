@@ -1,0 +1,29 @@
+class FunWithFiles {
+	void createFilesInFolder(String folderName)  {
+		System.out.println("Creating folder " + folderName + "...");
+		File folder = new File(folderName);
+		folder.mkdir();
+		System.out.println("Creating files...");
+		new File(folderName + "/1.txt").setText("One for the money.");
+		new File(folderName + "/2.txt").setText("Two for the show.");
+		new File(folderName + "/3.txt").setText("Three to get ready.");
+	}
+	void updateFilesInFolder(String folderName)  {
+		System.out.println("Updating file 1.txt...");
+		new File(folderName + "/1.txt").setText("Don't have any money.");
+		System.out.println("Updating file 3.txt...");
+		new File(folderName + "/3.txt").setText("She is still getting ready.");
+	}
+	void removeFilesFromFolder (String folderName) {
+		File directory = new File(folderName);
+		Closure deleteFilesClosure = {  currentFile ->
+			System.out.println("Deleting " + currentFile + "...");
+			currentFile.delete();
+		}
+		directory.eachFileRecurse(deleteFilesClosure);
+	}
+}
+FunWithFiles fwf = new FunWithFiles();
+fwf.createFilesInFolder("inputs");
+fwf.updateFilesInFolder("inputs");
+fwf.removeFilesFromFolder("inputs");
